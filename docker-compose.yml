@@ -1,0 +1,23 @@
+version: "3.3"
+services:
+  db:
+    restart: always
+    image: postgres:15.2
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=web
+    ports:
+      - 5431:5432
+    volumes:
+      - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql
+  app :
+    depends_on:
+      - db
+    build: web
+    ports:
+      - 1234:1234
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=web

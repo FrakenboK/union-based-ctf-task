@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CybHack</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="service-name">CybHack Union</div>
+            <ul class="nav-links">
+                <li><a href="/notes">Notes</a></li>
+                <li><a href="/create">Create Note</a></li>
+                <li><a href="/logout">Logout</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="table-container">
+        <h1>Notes List</h1>
+        <div class="search-container">
+            <form action="/notes" method="GET">
+                <input type="text" name="search" id="searchInput" placeholder="Search note name..." class="search-input">
+                <button id="searchButton" class="search-btn">Search</button>
+            </form>
+            {% if error!="": %}
+                <div id="errorText" class="error-text">{{ error }}</div>
+            {% endif %}
+        </div>
+        {% if notes: %}
+
+        <table id="notesTable">
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Content</th>
+                    <th>Time Created</th>
+                </tr>
+            </thead>
+            {% for note in notes: %}
+            <tbody>
+                <tr>
+                    <td>{{note[0]}}</td>
+                    <td>{{note[1]}}</td>
+                    <td>{{note[2].strftime('%c')}}</td>
+                </tr>
+            </tbody>
+            {% endfor %}
+        </table>
+        {% else %}
+
+        <p>No such notes</p>
+
+        {% endif%}
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <p><a href="https://t.me/kibhackctf">Contact CybHack</a></p>
+        </div>
+    </footer>
+</body>
+</html>
