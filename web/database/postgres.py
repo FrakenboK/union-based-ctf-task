@@ -34,8 +34,8 @@ class Database:
 
     def get_user_notes(self, user_id: int):
         cursor = self._db_con.cursor()
-        sqlRequest = "SELECT title, message, created_at FROM notes WHERE user_id=%d" % user_id
-        cursor.execute(sqlRequest)
+        sqlRequest = "SELECT title, message, created_at FROM notes WHERE user_id=%s"
+        cursor.execute(sqlRequest, (user_id))
         self._db_con.rollback()
 
         return cursor.fetchall()
@@ -43,7 +43,7 @@ class Database:
     def search_user_notes(self, user_id: int, search: str):
         cursor = self._db_con.cursor()
         self._db_con.rollback()
-        sqlRequest = "SELECT title, message, created_at FROM notes WHERE user_id=%d and title='%s'" % (user_id, search)
-        cursor.execute(sqlRequest)
+        sqlRequest = "SELECT title, message, created_at FROM notes WHERE user_id=%s and title=%s"
+        cursor.execute(sqlRequest, (user_id, search))
 
         return cursor.fetchall()

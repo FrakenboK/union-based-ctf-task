@@ -40,6 +40,10 @@ def register():
 
     return redirect(url_for('login', message='Register succesfull'))
 
+@app.route('/secret', methods=['GET'])
+def login():
+    return "kxctf{}"
+
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if 'user_id' in session:

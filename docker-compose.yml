@@ -14,7 +14,7 @@ services:
       - db
     build: web
     ports:
-      - 1234:1234
+      - 1717:1717
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
